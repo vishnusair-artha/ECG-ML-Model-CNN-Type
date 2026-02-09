@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECG Insight Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-slate-950 text-slate-100">
+    <div class="min-h-screen">
+      <header class="border-b border-slate-800">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+          <div>
+            <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Investor Demo</p>
+            <h1 class="mt-2 text-3xl font-semibold">ECG Insight Studio</h1>
+          </div>
+          <div class="rounded-full bg-emerald-500/10 px-4 py-2 text-sm text-emerald-300">
+            Real-time ECG interpretation
+          </div>
+        </div>
+      </header>
+
+      <main class="mx-auto grid max-w-6xl gap-8 px-6 py-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-xl">
+          <h2 class="text-2xl font-semibold">Upload ECG Signal</h2>
+          <p class="mt-3 text-sm text-slate-400">
+            Upload an ECG in CSV, TXT, or PDF format. We will extract the signal, run the CNN model, and
+            return a confidence-scored interpretation.
+          </p>
+
+          <form id="upload-form" class="mt-8">
+            <label
+              class="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed
+              border-slate-700 bg-slate-950/40 px-6 py-10 text-center transition hover:border-emerald-400"
+            >
+              <input id="file-input" type="file" class="hidden" accept=".csv,.txt,.pdf" />
+              <span class="text-sm text-slate-300">Drop file here or click to upload</span>
+              <span class="mt-2 text-xs text-slate-500">Accepted: CSV, TXT, PDF</span>
+            </label>
+            <button
+              type="submit"
+              class="mt-6 w-full rounded-2xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-slate-950
+              shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-400"
+            >
+              Analyze ECG
+            </button>
+          </form>
+
+          <div id="status" class="mt-4 text-sm text-slate-400"></div>
+        </section>
+
+        <section class="flex flex-col gap-6">
+          <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+            <h3 class="text-lg font-semibold">Model Output</h3>
+            <div class="mt-6 grid gap-4">
+              <div class="rounded-2xl bg-slate-950/60 p-4">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Prediction</p>
+                <p id="prediction" class="mt-2 text-2xl font-semibold text-emerald-300">Awaiting upload</p>
+              </div>
+              <div class="rounded-2xl bg-slate-950/60 p-4">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Confidence</p>
+                <p id="confidence" class="mt-2 text-2xl font-semibold text-slate-100">--</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+            <h3 class="text-lg font-semibold">Interpretation</h3>
+            <p id="interpretation" class="mt-4 text-sm leading-relaxed text-slate-300">
+              Upload an ECG file to generate a clinical interpretation and key model insights.
+            </p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-900/20 p-6">
+            <h3 class="text-lg font-semibold">Probability Breakdown</h3>
+            <div id="probabilities" class="mt-4 grid gap-3 text-sm text-slate-300">
+              <p>No probabilities yet.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
